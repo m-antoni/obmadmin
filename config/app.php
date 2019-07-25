@@ -163,7 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Nexmo\Laravel\NexmoServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
-       
+        
         /*
          * Package Service Providers...
          */

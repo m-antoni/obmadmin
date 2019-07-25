@@ -15,11 +15,20 @@ class AdUsersController extends Controller
   			return view('admin.users.users', compact('users'));
   	}
 
-  	public function pending()
-  	{
-  			$pendings = Order::where('status', 'pending')->get();
+    public function user_show(User $user)
+    {
+        return view('admin.users.user_show', compact('user'));
+    }
 
-  			return $pendings; 
-  	}
-    
+    public function block_user(User $user)
+    {
+        // block user
+    }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+
+        return redirect()->route('admin.users')->with('success', 'User has been deleted successfully');
+    }
 }

@@ -21,10 +21,5 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
-        $price = 2000;
-
-        return view('home', compact('price'));
-    }
+    
 }

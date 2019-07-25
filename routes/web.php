@@ -17,41 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Users Routes 
-Auth::routes();
-
-// set to send verify link
-// Auth::routes(['verify' => true]);
-
-Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
-Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout')->middleware('auth');
-Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout')->middleware('auth');
-
-// ProductsConstroller
-Route::get('/home/products/', 'ProductsController@products')->name('products')->middleware('auth');
-Route::get('/home/product/{product}', 'ProductsController@single_product')->name('single.product')->middleware('auth');
-
-// Cash On Delivery
-Route::get('/home/products/{product}/cod', 'ProductsController@order_cod')->name('order.cod')->middleware('auth');
-Route::post('/home/products/{product}/cod', 'ProductsController@product_cod')->name('product.cod')->middleware('auth');
-
-// Paypal Routes
-Route::get('/home/products/paypal/{product}', 'PaypalController@index')->name('paypal');
-Route::post('/home/products/paypal/checkout', 'PaypalController@createPayment')->name('create-paypal');
-Route::get('/home/products/paypal/confirm', 'PaypalController@confirmPayment')->name('confirm-paypal');
-
-// Pay On Bank
-Route::get('/home/product/{create}/bank', 'ProductsController@order_bank')->name('order.bank')->middleware('auth');
-Route::post('/home/product/{product}/bank', 'ProductsController@product_bank')->name('product.bank')->middleware('auth');
-
-Route::get('/home/product/show/{id}', 'ProductsController@summary')->name('summary')->middleware('auth');
-Route::get('/home/products/show/orders', 'ProductsController@myorders')->name('myorders')->middleware('auth');
-
-// Pay On Bank
-Route::get('/home/payonbank/', 'ProductsController@payonbank')->name('payonbank');
-// Route::get('/home/product/show/{id}/edit', 'ProductsController@edit_summary')->name('edit.summary');
-// Route::patch('/home/product/show/{id}', 'ProductsController@update_summary')->name('update.summary');
-
 // Administrator Routes 
 Route::prefix('admin')->group(function(){
 		Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.form');
@@ -59,7 +24,7 @@ Route::prefix('admin')->group(function(){
 		Route::get('/', 'AdminController@index')->name('admin.dashboard');
 		Route::get('/logout', 'Auth\AdminLoginController@adminLogout')->name('admin.logout');
 
-		// Dashboard Routes
+		// Products Routes
 		Route::get('products', 'AdProductsController@products')->name('admin.products')->middleware('auth:admin');
 		Route::get('products/create', 'AdProductsController@create')->name('admin.products.create')->middleware('auth:admin');
 		Route::post('products', 'AdProductsController@store')->name('admin.products.store')->middleware('auth:admin');
@@ -70,10 +35,20 @@ Route::prefix('admin')->group(function(){
 		
 		// Users Routes
 		Route::get('users','AdUsersController@index')->name('admin.users')->middleware('auth:admin');
+		Route::get('users/{user}','AdUsersController@user_show')->name('admin.user.show')->middleware('auth:admin');
 		Route::get('pending','AdUsersController@pending')->name('admin.users.pending')->middleware('auth:admin');	
+		Route::delete('users/{user}','AdUsersController@destroy')->name('admin.users.delete')->middleware('auth:admin');	
 
+		// Order Routes
+		Route::get('orders','AdOrdersController@index')->name('admin.order')->middleware('auth:admin');
+		Route::put('orders/{order}/','AdOrdersController@update')->name('admin.order.update')->middleware('auth:admin');
+		Route::delete('orders/{order}/','AdOrdersController@destroy')->name('admin.order.delete')->middleware('auth:admin');
+
+		// Order Export
+		Route::get('orders/export', 'ImportExportController@export_order')->name('admin.order.export')->middleware('auth:admin');
+		
 		// Products Import and Export Routes
 		Route::post('products/import', 'ImportExportController@import')->name('admin.products.import')->middleware('auth:admin');
-		Route::get('product/export', 'ImportExportController@export')->name('admin.products.export')->middleware('auth:admin'); 
+		Route::get('product/export', 'ImportExportController@export')->name('admin.products.export')->middleware('auth:admin');
 });
 

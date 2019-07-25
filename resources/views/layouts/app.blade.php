@@ -7,93 +7,93 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'One Beem') }}</title>
 
-    {{-- auth guard admin styles --}}
-    @auth('admin')
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link href="/assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
-        <link rel="stylesheet" href="/assets/libs/css/style.css">
-        <link rel="stylesheet" href="/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
-        <link rel="stylesheet" href="/assets/vendor/charts/chartist-bundle/chartist.css">
-        <link rel="stylesheet" href="/assets/vendor/charts/morris-bundle/morris.css">
-        <link rel="stylesheet" href="/assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css">
-        <link rel="stylesheet" href="/assets/vendor/charts/c3charts/c3.css">
-    @endauth
-
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:700|Roboto:700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
     <link rel="stylesheet" href="{{ asset('/css/bttn.min.css') }}">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
-    <!-- Styles -->
-    <link href="{{ asset('/css/iziToast.min.css') }}" rel="stylesheet">
     
-    <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+  <!-- Custom fonts for this template-->
+ <!-- Custom fonts for this template-->
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <style>
-      h4, h2, #productName{
-        font-family: 'Roboto', sans-serif;
-      }
-    </style>
+  <!-- Custom styles for this template-->
+  <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+  {{-- <link rel="stylesheet" href="{{ asset('/css/btns.min.css') }}"> --}}
+
+  <link href="{{ asset('/css/iziToast.min.css') }}" rel="stylesheet">
+  <!-- Styles -->
+  <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+
+   <!-- Scripts -->
+  <script src="{{ asset('js/app.js') }}" defer></script>
+
 </head>
-<body>
-    <div id="app">
-      
-      @include('partials.navbar')
-
-        <main class="py-4">
-
-            @yield('content')
-             
-        </main>
-        
-      @if(auth('admin'))
-          {{-- admin nav bar --}}        
-          @include('admin.partials.admin-navbar')
-          
-          {{--  admin dashboard left sidebar    --}}              
-          @include('admin.partials.left-sidebar')
-
-          <div class="dashboard-wrapper">
-              <div class="dashboard-ecommerce">
-                  <div class="container-fluid dashboard-content ">
-                        
-                        {{--  admin content goes here --}}   
-                        @yield('admin-content')
-                        
-                  </div>
-              </div>
-          </div>
-      @endif
-    
-    </div>
-      @if(auth('admin'))
-          <!-- slimscroll js -->
-          <script src="/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
-          <!-- main js -->
-          <script src="/assets/libs/js/main-js.js"></script>
-          <!-- chart chartist js -->
-          <script src="/assets/vendor/charts/chartist-bundle/chartist.min.js"></script>
-          <!-- sparkline js -->
-          <script src="/assets/vendor/charts/sparkline/jquery.sparkline.js"></script>
-          <!-- morris js -->
-          <script src="/assets/vendor/charts/morris-bundle/raphael.min.js"></script>
-          <script src="/assets/vendor/charts/morris-bundle/morris.js"></script>
-          <!-- chart c3 js -->
-          <script src="/assets/vendor/charts/c3charts/c3.min.js"></script>
-          <script src="/assets/vendor/charts/c3charts/d3-5.4.0.min.js"></script>
-          <script src="/assets/vendor/charts/c3charts/C3chartjs.js"></script>
-          <script src="/assets/libs/js/dashboard-ecommerce.js"></script>
-      @endif
-
-      <!-- Custom scripts for this template -->
-      <script src="/js/iziToast.min.js"></script>
-      <!-- Adding Custom scripts  -->
-      @yield('script')
-      <!-- =====================  -->
+<body id="page-top">
   
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+    <!-- Sidebar -->
+    @include('admin.partials.left-sidebar')
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+        
+        @include('admin.partials.navbar')
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+          
+          <!-- Content Row -->
+          <div class="row">
+
+              @yield('admin-content')
+
+          </div>
+          
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2019</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+    </div>
+    <!-- End of Content Wrapper -->
+    
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="/vendor/jquery/jquery.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <script src="/js/sb-admin-2.min.js"></script>
+  <script src="/js/iziToast.min.js"></script>
+  
+  {{-- <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> --}}
+
+  <!-- Custom scripts -->
+  @yield('script')
+
 </body>
 </html>

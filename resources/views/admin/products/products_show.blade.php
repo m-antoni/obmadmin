@@ -15,11 +15,11 @@
             <div class="float-left"></div>
              <div class="float-right">
 			         <div class="btn-group" role="group">
-										<a class="btn btn-primary rounded-0" href="{{ route('admin.products.edit', $product->id) }}"><i class="fa fa-edit"></i> Edit</a>
+										<a class="bttn bttn-primary bttn-fill bttn-sm" href="{{ route('admin.products.edit', $product->id) }}"><i class="fa fa-edit"></i> Edit</a>
 								    <form action="{{ route('admin.products.delete', $product->id) }}" method="POST">
 								    	@csrf
 								    	@method('DELETE')
-								    	<button type="submit" class="btn btn-danger rounded-0"><i class="fa fa-trash"></i> Delete</button>
+								    	<button type="submit" class="bttn bttn-danger bttn-fill bttn-sm"><i class="fa fa-trash"></i> Delete</button>
 								    </form>
 			          </div>
 	       		</div>
@@ -29,22 +29,20 @@
 						<div class="card-body">
 								<div class="row">
 											<div class="col-sm-6">
-											@if($product->image == 'noimage.jpg')
-													<img src="/img/noimage.jpg" alt="img" class="img-thumbnail">
-											@else
-													<img src="{{ asset('storage/' . $product->image) }}" alt="img" class="img-thumbnail" style="width: 400px;">
-											@endif
+													@if($product->image == 'noimage.jpg')
+														<img src="{{ asset('/img/noimage.jpg') }}" alt="img" class="img-fluid rounded-0" style="width: 400px;">
+													@else
+														<img src="{{ $product->image }}" alt="img" class="img-thumbnail rounded-0" style="width: 400px;">
+													@endif
 											</div>
 											<div class="col-sm-6 pt-3">
 													<div class="card">	
 														<div class="card-header bg-secondary text-white"><h4>ID: {{ $product->id }}</h4></div>
 															<div class="card-body">
 																		<h4 class="mb-3">Product: {{$product->p_name}}</h4>
-																		<p>Model: {{$product->p_model}}</p>
-																		<p>Category: {{$product->p_category}}</p>
 																		<p>Description: {{$product->description}}</p>
-																		<p>Quantity: {{$product->quantity}}</p>
 																		<p>Price: ₱ {{$product->price}}</p>
+																		<p>Old Price: <s>₱ {{$product->old_price}}</s></p>
 															</div>
 													</div>
 											</div>

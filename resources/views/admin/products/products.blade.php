@@ -13,45 +13,43 @@
         </nav>
     </div>
 
-		<form action="{{ route('admin.products.import') }}" method="POST" enctype="multipart/form-data">
+		<form action="{{ route('admin.products.import') }}" method="POST" enctype="multipart/form-data" class="mb-">
 			@csrf
-		{{-- 	<div class="col-4">
-				<input type="file" name="file" class="form-control">
-			</div>
-			 --}}
-				<div class="col-sm-3 p-0 mb-2">
-						<div class="input-group">
-							  {{-- <div class="input-group-prepend">
-							    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-							  </div> --}}
-							  <div class="custom-file">
-							    <input type="file" name="file" class="custom-file-input">
-							    <label class="custom-file-label">Choose file</label>
-							  </div>
+				<div class="clearfix">
+						<div class="float-left">
+								<div class="input-group">
+							  		<div class="custom-file">
+									    <input type="file" name="file" class="custom-file-input">
+									    <label class="custom-file-label">Choose file</label>
+									  </div>
+								</div>
+						</div>
+						<div class="float-right">
+								<div class="btn-group" role="group" aria-label="Basic example">
+				      			<button class="bttn bttn-fill bttn-success bttn-sm">
+				      					<i class="fa fa-file-excel"></i> 
+				        			 IMPORT
+				      			</button>
+
+				          	<a href="{{ route('admin.products.export') }}">
+				          			<button type="button" class="bttn bttn-fill bttn-danger bttn-sm">
+				          					<i class="fa fa-download"></i> 
+					          			 EXPORT
+				          			</button>
+				          	</a>
+			        	</div>
 						</div>
 				</div>
-				<div class="btn-group" role="group" aria-label="Basic example">
-          	<button class="btn btn-success rounded-0">
-	          		<i class="fa fa-file-excel"></i> 
-	          		IMPORT FILE
-	          </button>
-          	<a href="{{ route('admin.products.export') }}" class="btn btn-danger rounded-0">
-	          		<i class="fa fa-download"></i> 
-	          			 EXPORT FILE
-          	</a>
-        </div>
      </form>
 
  @if(count($products) > 0)
-		 <table class="table table-hover table-striped">
+		 <table class="table table-hover table-striped table-responsive-md">
 		  <tr>
 			    <th>ID</th>
-			    <th>Item</th> 
-			    <th>Model</th>
-			    <th>Category</th>
-			    <th>Description</th>
-			    <th>Qty</th>
+			    <th>Product</th> 
+			    <th>Description</th> 
 			    <th>Price</th>
+			    <th>Old Price</th>
 			    <th>Action</th>
 		  </tr>
 		 
@@ -59,11 +57,9 @@
 			  <tr>
 			   		<td>{{$product->id}}</td>
 			   		<td><a href="{{ route('admin.products.show', $product->id) }}">{{$product->p_name}}</a></td>
-			   		<td>{{$product->p_model}}</td>
-			   		<td>{{$product->p_category}}</td>
 			   		<td>{{$product->description}}</td>
-			   		<td>{{$product->quantity}}</td>
 			   		<td>{{$product->price}}</td>
+			   		<td>{{$product->old_price}}</td>
 			   		<td>
 			   				<div class="dropdown">
 								  <button class="btn btn-sm btn-dark btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

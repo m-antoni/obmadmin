@@ -22,29 +22,18 @@ class AdProductsController extends Controller
    	public function store(Request $request)
    	{   
         // Validation data
-   			$request->validate([
+   			$validate = $request->validate([
    					'id' => 'required|unique:products,id',
    					'p_name' => 'required|string|max:100',
-   					'p_model' => 'required|string|max:100',
-   					'p_category' => 'required|string|max:100',
-   					'description' => 'required|string|max:150',
+   					'description' => 'required|string',
    					'price' => 'required|numeric',
-   					'quantity' => 'required|numeric',
-            'image' => 'sometimes|file|image|max:1999',
+   					'old_price' => 'required|numeric',
    			]);
 
-   			$product = Product::create([
-   					'id' => $request->id,
-   					'p_name' => $request->p_name,
-   					'p_model' => $request->p_model,
-   					'p_category' => $request->p_category,
-   					'description' => $request->description,
-   					'price' => $request->price,
-   					'quantity' => $request->quantity
-   			]);
+   			$product = Product::create($validate);
 
         // store image
-        $this->storeImage($product);
+        // $this->storeImage($product);
 
    			return redirect()->route('admin.products.show', $product->id )->with('success', 'New product added successfully');
    	}
@@ -59,19 +48,16 @@ class AdProductsController extends Controller
         $validate = $request->validate([
             'id' => 'required',
             'p_name' => 'required|string|max:100',
-            'p_model' => 'required|string|max:100',
-            'p_category' => 'required|string|max:100',
-            'description' => 'required|string|max:150',
+            'description' => 'required|string',
             'price' => 'required|numeric',
-            'quantity' => 'required|numeric',
-            'image' => 'sometimes|file|image|max:1999',
+            'old_price' => 'required|numeric',
         ]);
 
         // update data in database
         $product->update($validate);
 
         // update image
-        $this->storeImage($product);
+        // $this->storeImage($product);
 
    			return redirect()->route('admin.products.show', $product->id)->with('success', 'Product details updated successfully');
    	}
@@ -88,12 +74,4 @@ class AdProductsController extends Controller
       return redirect()->route('admin.products')->with('success', 'Product has been deleted successfully');
     }
 
-    public function storeImage($product)
-    {
-        if(request()->has('image')){
-            $product->update([
-                'image' => request()->image->store('uploads', 'public'),
-            ]);
-        }
-    }
 }
