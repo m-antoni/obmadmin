@@ -5,48 +5,33 @@
 	  <div class="page-breadcrumb mb-3">
 	    <nav aria-label="breadcrumb">
 	        <ol class="breadcrumb">
-	            <li class="breadcrumb-item active" aria-current="page">Users</li>
-	            <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('admin.block') }}">Blocked</a></li>
+	            <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('admin.users') }}">Users</a></li>
+	            <li class="breadcrumb-item active" aria-current="page">Blocked</li>
 	        </ol>
 	    </nav>
 	  </div>
 				
-		@if(count($users) > 0)
-		 <table class="table table-hover table-striped">
-			 	<thead>
-			 			<tr>
-					  		<th>ID</th>
-						    <th>Name</th>
-						    <th>Phone</th> 
-						    <th>Email</th>
-						    <th>Date</th>
-						    <th>Block</th>
-						    <th>Action</th>
-					  </tr>
-			 	</thead>
-				<tbody id="userTable">
-						@foreach($users as $user)
-						  <tr>
-						  		<td>{{$user->id}}</td>
-						   		<td><a href="{{ route('admin.user.show', $user->id) }}">{{$user->getFullNameAttribute()}}</a></td>
-						   		<td>{{$user->phone}}</td>
-						   		<td>{{$user->email}}</td>
-						   		<td>{{$user->created_at->format('m-d-Y')}}</td>
-						   		<td>{{$user->isBan == 0 ? 'Fine' : 'Block'}}</td>
-								   <td>
+			@if(count($block) > 0)
+		 <table class="table table-hover table-striped col-6">
+			  <tr>
+			  		<th>ID</th>
+				    <th>Name</th>
+				    <th>Email</th>
+				    <th>Action</th>
+			  </tr>
+		 
+			  @foreach($block as $row)
+					  <tr>
+					  		<td>{{$row->id}}</td>
+					   		<td><a href="{{ route('admin.user.show', $row->id) }}">{{$row->getFullNameAttribute()}}</a></td>
+					   		<td>{{$row->email}}</td>
+					   		<td>
 							   			<div class="dropdown">
 												  <button class="btn btn-sm btn-dark btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 												   <i class="fa fa-cog"></i>
 												  </button>
 												  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-												    	<form action="{{ route('admin.user.block', $user->id) }}" method="POST">
-											   					@csrf
-											   					@method('PUT')
-
-											   					<button type="submit" class="dropdown-item">BLOCK</button>
-											   			</form>
-
-												    <form action="{{ route('admin.users.delete', $user->id) }}" method="POST">
+												    <form action="{{ route('admin.users.delete', $row->id) }}" method="POST">
 												    	@csrf
 												    	@method('DELETE')
 
@@ -55,13 +40,12 @@
 												    
 												  </div>
 											</div>
-								   	</td>
-								</tr>
-						@endforeach
-				</tbody>
-			</table>
+							   	</td>
+							</tr>
+					@endforeach
+				</table>
 
-					{{ $users->links()}}
+					{{ $block->links()}}
 					
 				@else
 
@@ -72,18 +56,6 @@
 @endsection
 
 @section('script')
-
-	<script>
-			$(document).ready(function(){
-				  $("#search").on("keyup", function() {
-				    var value = $(this).val().toLowerCase();
-				    $("#userTable tr").filter(function() {
-				      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-				    });
-				  });
-			});
-	</script>
-	
 	@if(session('success'))
 		<script type="text/javascript">
 				iziToast.success({

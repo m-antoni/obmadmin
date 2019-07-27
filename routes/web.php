@@ -1,14 +1,5 @@
 <?php
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
 use Illuminate\Http\Request;
 use App\Product;
 
@@ -36,11 +27,14 @@ Route::prefix('admin')->group(function(){
 		// Users Routes
 		Route::get('users','AdUsersController@index')->name('admin.users')->middleware('auth:admin');
 		Route::get('users/{user}','AdUsersController@user_show')->name('admin.user.show')->middleware('auth:admin');
-		Route::get('pending','AdUsersController@pending')->name('admin.users.pending')->middleware('auth:admin');	
+		Route::get('pending','AdUsersController@pending')->name('admin.users.pending')->middleware('auth:admin');
+		Route::get('users/block/list','AdUsersController@block')->name('admin.block')->middleware('auth:admin');
+		Route::put('users/{user}', 'AdUsersController@block_user')->name('admin.user.block')->middleware('auth:admin');
 		Route::delete('users/{user}','AdUsersController@destroy')->name('admin.users.delete')->middleware('auth:admin');	
 
 		// Order Routes
 		Route::get('orders','AdOrdersController@index')->name('admin.order')->middleware('auth:admin');
+		Route::get('orders/complete','AdOrdersController@complete')->name('admin.order.complete')->middleware('auth:admin');
 		Route::put('orders/{order}/','AdOrdersController@update')->name('admin.order.update')->middleware('auth:admin');
 		Route::delete('orders/{order}/','AdOrdersController@destroy')->name('admin.order.delete')->middleware('auth:admin');
 

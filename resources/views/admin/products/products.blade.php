@@ -44,40 +44,43 @@
 
  @if(count($products) > 0)
 		 <table class="table table-hover table-striped table-responsive-md">
-		  <tr>
-			    <th>ID</th>
-			    <th>Product</th> 
-			    <th>Description</th> 
-			    <th>Price</th>
-			    <th>Old Price</th>
-			    <th>Action</th>
-		  </tr>
-		 
-		  @foreach($products as $product)
-			  <tr>
-			   		<td>{{$product->id}}</td>
-			   		<td><a href="{{ route('admin.products.show', $product->id) }}">{{$product->p_name}}</a></td>
-			   		<td>{{$product->description}}</td>
-			   		<td>{{$product->price}}</td>
-			   		<td>{{$product->old_price}}</td>
-			   		<td>
-			   				<div class="dropdown">
-								  <button class="btn btn-sm btn-dark btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								   <i class="fa fa-cog"></i>
-								  </button>
-								  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-								    <a class="dropdown-item" href="{{ route('admin.products.edit', $product->id) }}">Edit</a>
-								    <form action="{{ route('admin.products.delete', $product->id) }}" method="POST">
-								    	@csrf
-								    	@method('DELETE')
-								    	<input type="submit" class="dropdown-item" value="Delete">
-								    </form>
-								    
-								  </div>
-								</div>
-			   		</td>
-			  </tr>
-			@endforeach
+			 	<thead>
+			 			<tr>
+						    <th>ID</th>
+						    <th>Product</th> 
+						    <th>Description</th> 
+						    <th>Price</th>
+						    <th>Old Price</th>
+						    <th>Action</th>
+					  </tr>
+			 	</thead>
+				<tbody id="productsTable">
+						@foreach($products as $product)
+						  <tr>
+						   		<td>{{$product->id}}</td>
+						   		<td><a href="{{ route('admin.products.show', $product->id) }}">{{$product->p_name}}</a></td>
+						   		<td>{{$product->description}}</td>
+						   		<td>{{$product->price}}</td>
+						   		<td>{{$product->old_price}}</td>
+						   		<td>
+						   				<div class="dropdown">
+											  <button class="btn btn-sm btn-dark btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											   <i class="fa fa-cog"></i>
+											  </button>
+											  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+											    <a class="dropdown-item" href="{{ route('admin.products.edit', $product->id) }}">Edit</a>
+											    <form action="{{ route('admin.products.delete', $product->id) }}" method="POST">
+											    	@csrf
+											    	@method('DELETE')
+											    	<input type="submit" class="dropdown-item" value="Delete">
+											    </form>
+											    
+											  </div>
+											</div>
+						   		</td>
+						  </tr>
+						@endforeach
+				</tbody>
 		</table>
 		{{ $products->links()}}
 	@else
@@ -87,6 +90,19 @@
 @endsection
 
 @section('script')
+
+<script>
+		$(document).ready(function(){
+			  $("#search").on("keyup", function() {
+			    var value = $(this).val().toLowerCase();
+			    $("#productsTable tr").filter(function() {
+			      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+			    });
+			  });
+		});
+</script>
+
+
 	@if(session('success'))
 		<script type="text/javascript">
 				iziToast.success({

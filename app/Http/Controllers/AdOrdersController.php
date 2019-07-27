@@ -12,7 +12,7 @@ class AdOrdersController extends Controller
 {
     public function index()
     {
-    		$orders = Order::orderBy('date', 'DESC')->paginate(7);
+    		$orders = Order::orderBy('date', 'DESC')->where('status', 'pending')->paginate(7);
 
     		return view('admin.orders.orders', compact('orders'));
     }
@@ -24,6 +24,15 @@ class AdOrdersController extends Controller
    			]);
 
    			return redirect()->route('admin.order')->with('success', 'Order has been updated successfully');
+    }
+
+    public function complete()
+    {
+        $complete = Order::orderBy('created_at', 'DESC')
+                          ->where('status', 'done')
+                          ->paginate(7);
+
+        return view('admin.orders.complete', compact('complete'));
     }
 
     public function destroy(Order $order)

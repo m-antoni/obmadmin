@@ -10,7 +10,7 @@ class AdUsersController extends Controller
 {
   	public function index()
   	{	
-  			$users = User::orderBy('created_at', 'desc')->paginate(7);
+  			$users = User::orderBy('created_at', 'DESC')->where('isBan', 0)->paginate(7);
 
   			return view('admin.users.users', compact('users'));
   	}
@@ -20,9 +20,24 @@ class AdUsersController extends Controller
         return view('admin.users.user_show', compact('user'));
     }
 
+    public function block()
+    {   
+        $block = User::orderBy('created_at', 'DESC')
+                        ->where('isBan', 1)
+                        ->paginate(7);
+
+        return view('admin.users.block', compact('block'));
+    }
+
     public function block_user(User $user)
     {
-        // block user
+        $user = User::where('id', $user->id);
+
+        $user->update([
+            'isBan' => 1
+        ]);
+
+        return redirect()->route('admin.users')->with('success', 'User has been Block! successfully');
     }
 
     public function destroy(User $user)
@@ -31,4 +46,5 @@ class AdUsersController extends Controller
 
         return redirect()->route('admin.users')->with('success', 'User has been deleted successfully');
     }
+
 }
