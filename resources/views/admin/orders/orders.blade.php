@@ -31,7 +31,7 @@
 				 	@foreach($orders as $row)
 					  <tr>
 					   		<td><a href="{{ route('admin.user.show', $row->user->id) }}">{{$row->user->getFullNameAttribute()}}</a></td>
-					   		<td>{{$row->product->p_name}}</td>
+					   		<td>{{strval($row->product->p_name)}}</td>
 					   		<td>{{$row->reference}}</td>
 					   		<td>{{$row->quantity}}</td>
 					   		<td>{{$row->price}}</td>

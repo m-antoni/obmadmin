@@ -59,7 +59,7 @@
 						  <tr>
 						   		<td>{{$product->id}}</td>
 						   		<td><a href="{{ route('admin.products.show', $product->id) }}">{{$product->p_name}}</a></td>
-						   		<td>{{$product->description}}</td>
+						   		<td width="40%">{{$product->description}}</td>
 						   		<td>{{$product->price}}</td>
 						   		<td>{{$product->old_price}}</td>
 						   		<td>
