@@ -6,10 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
- 	  protected $guarded = [];
- 	  
- 	  public function orders()
- 	  {
- 	  		return $this->hasMany('App\Order');
- 	  }
+	protected $guarded = [];
+	  
+	public function orders()
+	{
+	  	return $this->hasMany('App\Order');
+	}
+
+	protected $hidden = [
+		'created_at',
+		'updated_at'
+	];
+
+
 }

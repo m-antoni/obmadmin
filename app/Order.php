@@ -12,6 +12,12 @@ class Order extends Model
 		'date', 
     ];
 
+    // unserialize the cart data
+    public function getCartAttribute($value)
+    {
+        return unserialize($value);
+    }
+
     public function user()
     {
         return $this->belongsTo('App\User');
@@ -20,5 +26,10 @@ class Order extends Model
     public function product()
     {
     	return $this->belongsTo('App\Product');
-    }    
+    }
+
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];    
 }

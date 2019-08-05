@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('admin-content')
-		<div class="container">
+		<div class="container-fluid">
 				<div class="page-breadcrumb mb-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
@@ -40,6 +40,7 @@
 														<div class="card-header bg-secondary text-white"><h4>ID: {{ $product->id }}</h4></div>
 															<div class="card-body">
 																		<h4 class="mb-3">Product: {{$product->p_name}}</h4>
+																		<p>Category: {{ucfirst($product->category)}}</p>
 																		<p>Description: {{$product->description}}</p>
 																		<p>Price: ₱ {{$product->price}}</p>
 																		<p>Old Price: <s>₱ {{$product->old_price}}</s></p>

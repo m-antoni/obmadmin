@@ -3,7 +3,7 @@
 
 @section('admin-content')
 
-	<div class="container">
+<div class="container-fluid">
   <div class="page-breadcrumb mb-3">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">

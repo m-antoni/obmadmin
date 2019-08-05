@@ -19,6 +19,7 @@
   <link href="{{ asset('/css/iziToast.min.css') }}" rel="stylesheet">
   <!-- Styles -->
   <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+  <link href="{{ asset('/css/main.css') }}" rel="stylesheet">
 
    <!-- Scripts -->
   <script src="{{ asset('js/app.js') }}"></script>
@@ -31,7 +32,7 @@
     <!-- Sidebar -->
     @include('admin.partials.left-sidebar')
     <!-- End of Sidebar -->
-
+    
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 
@@ -52,7 +53,7 @@
           
         </div>
         <!-- /.container-fluid -->
-        
+
       </div>
       <!-- End of Main Content -->
 

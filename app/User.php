@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'phone', 'address' ,'password',
+        'first','middle', 'last','email', 'phone', 'address','password',
     ];
 
     /**
@@ -25,7 +25,7 @@ class User extends Authenticatable
      */
     public function getFullNameAttribute()
     {
-        return "{$this->first} {$this->last}";
+       return ucfirst($this->first) . ' ' . ucfirst($this->middle) . ' ' . ucfirst($this->last);
     }
 
     /**
@@ -55,5 +55,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Card');
     }
-    
+
+    public function beem()
+    {
+        return $this->hasOne('App\Beem');
+    }
 }

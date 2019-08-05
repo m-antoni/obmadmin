@@ -16,6 +16,7 @@ class ImportExportController extends Controller
     {   
          // export products to excel file
         return Excel::download(new ProductExport, 'products.xlsx');
+        // return (new ProductExport)->download('products.pdf', \Maatwebsite\Excel\Excel\::MDPDF);
     }
 
     public function import()

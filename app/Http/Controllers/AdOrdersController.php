@@ -12,27 +12,43 @@ class AdOrdersController extends Controller
 {
     public function index()
     {
-    		$orders = Order::orderBy('date', 'DESC')->where('status', 'pending')->paginate(7);
+
+    		$orders = Order::orderBy('date', 'desc')
+                  ->where('status', 'PENDING')
+                  ->paginate(7);
+
+        // $order = Order::find(2);
+        // dd($order->cart);
 
     		return view('admin.orders.orders', compact('orders'));
+    }
+
+    public function order_invoice($id)
+    {
+        $order = Order::find($id);
+
+        // dd($order->id);
+
+        return view('admin.orders.order_invoice', compact('order'));
     }
 
     public function update(Order $order)
    	{
    			$order->update([
-   				'status' => 'done'
+   				'status' => 'DONE'
    			]);
 
    			return redirect()->route('admin.order')->with('success', 'Order has been updated successfully');
     }
 
-    public function complete()
+    public function completed()
     {
         $complete = Order::orderBy('created_at', 'DESC')
-                          ->where('status', 'done')
+                          ->where('status', 'DONE')
                           ->paginate(7);
 
-        return view('admin.orders.complete', compact('complete'));
+
+        return view('admin.orders.completed', compact('complete'));
     }
 
     public function destroy(Order $order)

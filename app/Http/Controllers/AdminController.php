@@ -31,8 +31,8 @@ class AdminController extends Controller
         $users = User::count();
         $orders = Order::count();
         $pending = Order::where('status', 'pending')->count();
-        $cod = Order::where('payment', 'cod')->get();
-        $bank = Order::where('payment', 'bank')->get();
+        $cod = Order::where('payment', 'COD')->count();
+        $bank = Order::where('payment', 'PAY ON BANK')->count();
         
         return view('admin.admin', compact('products', 'users', 'orders', 'cod', 'bank', 'pending'));
     }
